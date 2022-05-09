@@ -12,4 +12,4 @@ For just music:
 python3 /LSTM/experiment_1.py --lstm --produce
 python3 /LSTM/experiment_1.py --wavenet --produce
 
-To get data, download and unzip 'midis_v1.2.zip' from https://drive.google.com/drive/folders/1Stz3CAvMoplo79LR5I3onMWRelCugBYS
+To get data, download and unzip 'midis_v1.2.zip' from https://drive.google.com/drive/folders/1Stz3CAvMoplo79LR5I3onMWRelCugBYS in the main directory (outside LSTM)
