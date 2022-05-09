@@ -1,7 +1,7 @@
 import os
 from time import sleep
 import torch
-import jukebox.utils.dist_adapter as dist
+import utils.dist_adapter as dist
 
 def print_once(msg):
     if (not dist.is_available()) or dist.get_rank()==0:

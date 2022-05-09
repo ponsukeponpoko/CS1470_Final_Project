@@ -1,10 +1,10 @@
 import torch as t
-import jukebox.utils.dist_adapter as dist
+import utils.dist_adapter as dist
 from torch.utils.data.distributed import DistributedSampler
 from torch.utils.data import DataLoader, Dataset, BatchSampler, RandomSampler
-from jukebox.utils.dist_utils import print_all
-from jukebox.utils.audio_utils import calculate_bandwidth
-from jukebox.data.files_dataset import FilesAudioDataset
+from utils.dist_utils import print_all
+from utils.audio_utils import calculate_bandwidth
+from data.files_dataset import FilesAudioDataset
 
 class OffsetDataset(Dataset):
     def __init__(self, dataset, start, end, test=False):

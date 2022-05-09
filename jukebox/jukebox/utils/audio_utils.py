@@ -1,9 +1,9 @@
 import numpy as np
 import torch as t
-import jukebox.utils.dist_adapter as dist
+import utils.dist_adapter as dist
 import soundfile
 import librosa
-from jukebox.utils.dist_utils import print_once
+from utils.dist_utils import print_once
 
 class DefaultSTFTValues:
     def __init__(self, hps):

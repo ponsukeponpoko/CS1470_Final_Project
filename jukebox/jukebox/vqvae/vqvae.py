@@ -2,10 +2,10 @@ import numpy as np
 import torch as t
 import torch.nn as nn
 
-from jukebox.vqvae.encdec import Encoder, Decoder, assert_shape
-from jukebox.vqvae.bottleneck import NoBottleneck, Bottleneck
-from jukebox.utils.logger import average_metrics
-from jukebox.utils.audio_utils import spectral_convergence, spectral_loss, multispectral_loss, audio_postprocess
+from vqvae.encdec import Encoder, Decoder, assert_shape
+from vqvae.bottleneck import NoBottleneck, Bottleneck
+from utils.logger import average_metrics
+from utils.audio_utils import spectral_convergence, spectral_loss, multispectral_loss, audio_postprocess
 
 def dont_update(params):
     for param in params:

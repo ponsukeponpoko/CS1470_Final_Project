@@ -6,12 +6,12 @@ Test on dummy outputs to see if everything matches
 import os
 import numpy as np
 import torch as t
-import jukebox.utils.dist_adapter as dist
-from jukebox.hparams import Hyperparams, setup_hparams, REMOTE_PREFIX
-from jukebox.utils.remote_utils import download
-from jukebox.utils.torch_utils import freeze_model
-from jukebox.utils.dist_utils import print_all
-from jukebox.vqvae.vqvae import calculate_strides
+import utils.dist_adapter as dist
+from hparams import Hyperparams, setup_hparams, REMOTE_PREFIX
+from utils.remote_utils import download
+from utils.torch_utils import freeze_model
+from utils.dist_utils import print_all
+from vqvae.vqvae import calculate_strides
 import fire
 
 MODELS = {

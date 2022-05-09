@@ -3,11 +3,11 @@ import importlib
 import math
 import numpy as np
 import torch
-import jukebox.utils.dist_adapter as dist
+import utils.dist_adapter as dist
 from torch.optim import Optimizer
 from torch._utils import _flatten_dense_tensors
 
-from jukebox.utils.dist_utils import allreduce
+from utils.dist_utils import allreduce
 
 def adam_step(p: torch.Tensor, out_p: torch.Tensor, exp_avg: torch.Tensor, exp_avg_sq: torch.Tensor, grad: torch.Tensor,
               lr: float, beta1: float, beta2: float, eps: float, scale: float, step: int, eps_mode: int, bias_correction: int, weight_decay: float):

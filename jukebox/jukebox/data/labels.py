@@ -1,7 +1,7 @@
 import torch as t
 import numpy as np
-from jukebox.data.artist_genre_processor import ArtistGenreProcessor
-from jukebox.data.text_processor import TextProcessor
+from data.artist_genre_processor import ArtistGenreProcessor
+from data.text_processor import TextProcessor
 
 # Linear window heurisic to get a window of lyric_tokens
 def get_relevant_lyric_tokens(full_tokens, n_tokens, total_length, offset, duration):
