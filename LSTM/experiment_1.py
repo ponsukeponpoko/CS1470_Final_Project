@@ -20,6 +20,17 @@ from music21 import converter, instrument, note, chord, stream
 # from midi2audio import FluidSynth
 
 # defining function to read MIDI files
+def visualize_loss(losses, file_name):
+    x = np.arange(1, len(losses)+1)
+    plt.xlabel('i\'th Epoch')
+    plt.ylabel('Loss Value')
+    plt.title('Loss per Epoch')
+    plt.plot(x, losses)
+    path="./train_graphs/"
+    plt.savefig(path+file_name)
+    #plt.show()
+    
+    
 def read_midi(file):
 
     print("Loading Music File:", file)
@@ -300,8 +311,11 @@ if sys.argv[2] == "--train":
 
     # Losses
     # https://stackoverflow.com/questions/36952763/how-to-return-history-of-validation-loss-in-keras
-    print(history.history["val_loss"])
-
+    loss_list = (history.history["val_loss"])
+    print("loss_list:",loss_list)
+    print("name:", f"best_model-{name})
+    
+    visualize_losses(loss_list, f"best_model"-{name})
 # loading best model
 # TODO: Will need to manually rename best models in the future
 model = load_model(f"best_model-{name}.h5")
