@@ -1,4 +1,5 @@
 import os
+import sys
 import numpy as np
 from collections import Counter
 from sklearn.model_selection import train_test_split
@@ -80,6 +81,38 @@ def lstm(unique_x, unique_y):
     return model
 
 
+def wavenet(unique_x, unique_y):
+    model = models.Sequential()
+
+    # embedding layer
+    model.add(layers.Embedding(len(unique_x), 100, input_length=32, trainable=True))
+
+    model.add(layers.Conv1D(64, 3, padding="causal", activation="relu"))
+    model.add(layers.Dropout(0.2))
+    model.add(layers.MaxPool1D(2))
+
+    model.add(
+        layers.Conv1D(128, 3, activation="relu", dilation_rate=2, padding="causal")
+    )
+    model.add(layers.Dropout(0.2))
+    model.add(layers.MaxPool1D(2))
+
+    model.add(
+        layers.Conv1D(256, 3, activation="relu", dilation_rate=4, padding="causal")
+    )
+    model.add(layers.Dropout(0.2))
+    model.add(layers.MaxPool1D(2))
+
+    # model.add(Conv1D(256,5,activation='relu'))
+    model.add(layers.GlobalMaxPool1D())
+
+    model.add(layers.Dense(256, activation="relu"))
+    model.add(layers.Dense(len(unique_y), activation="softmax"))
+
+    model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
+    return model
+
+
 def convert_to_midi(prediction_output, output_audio=False):
 
     offset = 0
@@ -124,7 +157,7 @@ def convert_to_midi(prediction_output, output_audio=False):
 
 # specify the path
 # path = "schubert/"
-path = "../midis/"
+path = "./midis/"
 
 # read all the filenames
 files = [i for i in os.listdir(path) if i.endswith(".mid") and i.startswith("Alba")]
@@ -224,35 +257,17 @@ x_tr, x_val, y_tr, y_val = train_test_split(x_seq, y_seq, test_size=0.2, random_
 # Actual model
 
 K.clear_session()
-# model = models.Sequential()
-
-# embedding layer
-# model.add(layers.Embedding(len(unique_x), 100, input_length=32, trainable=True))
-
-# model.add(layers.Conv1D(64, 3, padding="causal", activation="relu"))
-# model.add(layers.Dropout(0.2))
-# model.add(layers.MaxPool1D(2))
-
-# model.add(layers.Conv1D(128, 3, activation="relu", dilation_rate=2, padding="causal"))
-# model.add(layers.Dropout(0.2))
-# model.add(layers.MaxPool1D(2))
-
-# model.add(layers.Conv1D(256, 3, activation="relu", dilation_rate=4, padding="causal"))
-# model.add(layers.Dropout(0.2))
-# model.add(layers.MaxPool1D(2))
-
-# # model.add(Conv1D(256,5,activation='relu'))
-# model.add(layers.GlobalMaxPool1D())
-
-# model.add(layers.Dense(256, activation="relu"))
-# model.add(layers.Dense(len(unique_y), activation="softmax"))
-
-# model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
-
-# model.summary()
 
 # Using LSTM
-model = lstm(unique_x, unique_y)
+model = None
+name = ""
+
+if sys.argv[1] == "--wavenet":
+    model = wavenet(unique_x, unique_y)
+    name = "wavenet"
+else:
+    model = lstm(unique_x, unique_y)
+    name = "lstm"
 
 model.summary()
 
@@ -263,7 +278,7 @@ print("unique y:", len(unique_y))
 # Define the callback to save the best model during training
 
 mc = callbacks.ModelCheckpoint(
-    "best_model.h5",
+    f"best_model-{name}.h5",
     monitor="val_loss",
     mode="min",
     save_best_only=True,
@@ -285,7 +300,7 @@ history = model.fit(
 
 # loading best model
 # TODO: Will need to manually rename best models in the future
-model = load_model("best_model.h5")
+model = load_model(f"best_model-{name}.h5")
 
 # Time to actually compose
 
