@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 import tensorflow.keras.layers as layers
-import tensorflow.keras.models as model
+import tensorflow.keras.models as models
 import tensorflow.keras.callbacks as callbacks
 import tensorflow.keras.backend as K
 
@@ -67,13 +67,14 @@ def read_midi(file):
     return np.array(notes)
 
 
-def lstm():
-    model = layers.Sequential()
+def lstm(unique_x, unique_y):
+    model = models.Sequential()
+    model.add(layers.Embedding(len(unique_x), 100, input_length=32, trainable=True))
     model.add(layers.LSTM(128, return_sequences=True))
     model.add(layers.LSTM(128))
     model.add(layers.Dense(256))
     model.add(layers.Activation("relu"))
-    model.add(layers.Dense(K.n_vocab))
+    model.add(layers.Dense(len(unique_y)))
     model.add(layers.Activation("softmax"))
     model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
     return model
@@ -136,7 +137,7 @@ notes_ = [element for note_ in notes_array for element in note_]
 
 # No. of unique notes
 unique_notes = list(set(notes_))
-print(len(unique_notes))
+print("number of unique notes:", len(unique_notes))
 
 # computing frequency of each note
 freq = dict(Counter(notes_))
@@ -153,7 +154,7 @@ plt.hist(no)
 
 
 frequent_notes = [note_ for note_, count in freq.items() if count >= 50]
-print(len(frequent_notes))
+print("number of frequent notes:", len(frequent_notes))
 
 
 # Preparing new musical files of only top notes
@@ -189,6 +190,9 @@ for note_ in new_music:
 x = np.array(x)
 y = np.array(y)
 
+print("x:", x.shape)
+print("y:", y.shape)
+
 
 # Assigning unique integer to every note
 
@@ -220,38 +224,50 @@ x_tr, x_val, y_tr, y_val = train_test_split(x_seq, y_seq, test_size=0.2, random_
 # Actual model
 
 K.clear_session()
-model = model.Sequential()
+# model = models.Sequential()
 
 # embedding layer
-model.add(layers.Embedding(len(unique_x), 100, input_length=32, trainable=True))
+# model.add(layers.Embedding(len(unique_x), 100, input_length=32, trainable=True))
 
-model.add(layers.Conv1D(64, 3, padding="causal", activation="relu"))
-model.add(layers.Dropout(0.2))
-model.add(layers.MaxPool1D(2))
+# model.add(layers.Conv1D(64, 3, padding="causal", activation="relu"))
+# model.add(layers.Dropout(0.2))
+# model.add(layers.MaxPool1D(2))
 
-model.add(layers.Conv1D(128, 3, activation="relu", dilation_rate=2, padding="causal"))
-model.add(layers.Dropout(0.2))
-model.add(layers.MaxPool1D(2))
+# model.add(layers.Conv1D(128, 3, activation="relu", dilation_rate=2, padding="causal"))
+# model.add(layers.Dropout(0.2))
+# model.add(layers.MaxPool1D(2))
 
-model.add(layers.Conv1D(256, 3, activation="relu", dilation_rate=4, padding="causal"))
-model.add(layers.Dropout(0.2))
-model.add(layers.MaxPool1D(2))
+# model.add(layers.Conv1D(256, 3, activation="relu", dilation_rate=4, padding="causal"))
+# model.add(layers.Dropout(0.2))
+# model.add(layers.MaxPool1D(2))
 
-# model.add(Conv1D(256,5,activation='relu'))
-model.add(layers.GlobalMaxPool1D())
+# # model.add(Conv1D(256,5,activation='relu'))
+# model.add(layers.GlobalMaxPool1D())
 
-model.add(layers.Dense(256, activation="relu"))
-model.add(layers.Dense(len(unique_y), activation="softmax"))
+# model.add(layers.Dense(256, activation="relu"))
+# model.add(layers.Dense(len(unique_y), activation="softmax"))
 
-model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
+# model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
+
+# model.summary()
+
+# Using LSTM
+model = lstm(unique_x, unique_y)
 
 model.summary()
+
+print("unique x:", len(unique_x))
+print("unique y:", len(unique_y))
 
 
 # Define the callback to save the best model during training
 
 mc = callbacks.ModelCheckpoint(
-    "best_model.h5", monitor="val_loss", mode="min", save_best_only=True, verbose=1
+    "best_model.h5",
+    monitor="val_loss",
+    mode="min",
+    save_best_only=True,
+    verbose=1,
 )
 
 
@@ -261,12 +277,14 @@ history = model.fit(
     np.array(y_tr),
     batch_size=128,
     epochs=50,
+    # epochs=1,
     validation_data=(np.array(x_val), np.array(y_val)),
     verbose=1,
     callbacks=[mc],
 )
 
 # loading best model
+# TODO: Will need to manually rename best models in the future
 model = load_model("best_model.h5")
 
 # Time to actually compose
@@ -276,7 +294,7 @@ ind = np.random.randint(0, len(x_val) - 1)
 random_music = x_val[ind]
 
 predictions = []
-for i in range(10):
+for i in range(50):
 
     random_music = random_music.reshape(1, no_of_timesteps)
 
@@ -291,6 +309,7 @@ print(predictions)
 # Time to convert integers back to notes
 x_int_to_note = dict((number, note_) for number, note_ in enumerate(unique_x))
 predicted_notes = [x_int_to_note[i] for i in predictions]
+print(predicted_notes)
 
 # Convert predictions into musical file
 convert_to_midi(predicted_notes, output_audio=True)
