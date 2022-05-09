@@ -285,18 +285,22 @@ mc = callbacks.ModelCheckpoint(
     verbose=1,
 )
 
+if sys.argv[2] == "--train":
+    # Train the model with batch size of 128 for 50 epochs
+    history = model.fit(
+        np.array(x_tr),
+        np.array(y_tr),
+        batch_size=128,
+        epochs=50,
+        # epochs=1,
+        validation_data=(np.array(x_val), np.array(y_val)),
+        verbose=1,
+        callbacks=[mc],
+    )
 
-# Train the model with batch size of 128 for 50 epochs
-history = model.fit(
-    np.array(x_tr),
-    np.array(y_tr),
-    batch_size=128,
-    epochs=50,
-    # epochs=1,
-    validation_data=(np.array(x_val), np.array(y_val)),
-    verbose=1,
-    callbacks=[mc],
-)
+    # Losses
+    # https://stackoverflow.com/questions/36952763/how-to-return-history-of-validation-loss-in-keras
+    print(history.history["val_loss"])
 
 # loading best model
 # TODO: Will need to manually rename best models in the future
