@@ -97,3 +97,6 @@ webencodings==0.5.1
 Werkzeug==2.0.1
 widgetsnbextension==3.5.1
 wrapt==1.12.1
+
+music21
+sklearn

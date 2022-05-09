@@ -16,7 +16,7 @@ import random
 
 from music21 import converter, instrument, note, chord, stream
 
-from midi2audio import FluidSynth
+# from midi2audio import FluidSynth
 
 # defining function to read MIDI files
 def read_midi(file):
@@ -116,10 +116,10 @@ def convert_to_midi(prediction_output, output_audio=False):
     midi_stream = stream.Stream(output_notes)
     midi_stream.write("midi", fp="music.mid")
 
-    if output_audio:
-        # using the default sound font in 44100 Hz sample rate
-        fs = FluidSynth()
-        fs.midi_to_audio("music.mid", "output.wav")
+    # if output_audio:
+    #     # using the default sound font in 44100 Hz sample rate
+    #     fs = FluidSynth()
+    #     fs.midi_to_audio("music.mid", "output.wav")
 
 
 # specify the path
