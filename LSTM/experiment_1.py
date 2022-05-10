@@ -315,7 +315,7 @@ if sys.argv[2] == "--train":
     print("loss_list:",loss_list)
     print("name:", f"best_model-{name}")
     
-    visualize_loss(loss_list, f"best_model"-{name})
+    visualize_loss(loss_list, f"best_model-{name}")
 # loading best model
 # TODO: Will need to manually rename best models in the future
 model = load_model(f"best_model-{name}.h5")
