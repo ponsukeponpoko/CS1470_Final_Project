@@ -1,0 +1,229 @@
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding (Embedding)        (None, 32, 100)           5600      
+_________________________________________________________________
+lstm (LSTM)                  (None, 32, 128)           117248    
+_________________________________________________________________
+lstm_1 (LSTM)                (None, 128)               131584    
+_________________________________________________________________
+dense (Dense)                (None, 256)               33024     
+_________________________________________________________________
+activation (Activation)      (None, 256)               0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 56)                14392     
+_________________________________________________________________
+activation_1 (Activation)    (None, 56)                0         
+=================================================================
+Total params: 301,848
+Trainable params: 301,848
+Non-trainable params: 0
+_________________________________________________________________
+unique x: 56
+unique y: 56
+2022-05-10 10:09:23.909487: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:185] None of the MLIR Optimization Passes are enabled (registered 2)
+Epoch 1/50
+57/57 [==============================] - 8s 87ms/step - loss: 3.8151 - val_loss: 3.6749
+
+Epoch 00001: val_loss improved from inf to 3.67495, saving model to best_model-lstm.h5
+Epoch 2/50
+57/57 [==============================] - 4s 73ms/step - loss: 3.6321 - val_loss: 3.5450
+
+Epoch 00002: val_loss improved from 3.67495 to 3.54504, saving model to best_model-lstm.h5
+Epoch 3/50
+57/57 [==============================] - 4s 71ms/step - loss: 3.5011 - val_loss: 3.4379
+
+Epoch 00003: val_loss improved from 3.54504 to 3.43786, saving model to best_model-lstm.h5
+Epoch 4/50
+57/57 [==============================] - 4s 70ms/step - loss: 3.3937 - val_loss: 3.3689
+
+Epoch 00004: val_loss improved from 3.43786 to 3.36888, saving model to best_model-lstm.h5
+Epoch 5/50
+57/57 [==============================] - 4s 72ms/step - loss: 3.3051 - val_loss: 3.3165
+
+Epoch 00005: val_loss improved from 3.36888 to 3.31652, saving model to best_model-lstm.h5
+Epoch 6/50
+57/57 [==============================] - 5s 80ms/step - loss: 3.2366 - val_loss: 3.2707
+
+Epoch 00006: val_loss improved from 3.31652 to 3.27073, saving model to best_model-lstm.h5
+Epoch 7/50
+57/57 [==============================] - 5s 82ms/step - loss: 3.1679 - val_loss: 3.2202
+
+Epoch 00007: val_loss improved from 3.27073 to 3.22015, saving model to best_model-lstm.h5
+Epoch 8/50
+57/57 [==============================] - 5s 83ms/step - loss: 3.1091 - val_loss: 3.1843
+
+Epoch 00008: val_loss improved from 3.22015 to 3.18431, saving model to best_model-lstm.h5
+Epoch 9/50
+57/57 [==============================] - 5s 83ms/step - loss: 3.0367 - val_loss: 3.1685
+
+Epoch 00009: val_loss improved from 3.18431 to 3.16851, saving model to best_model-lstm.h5
+Epoch 10/50
+57/57 [==============================] - 5s 85ms/step - loss: 2.9758 - val_loss: 3.1373
+
+Epoch 00010: val_loss improved from 3.16851 to 3.13734, saving model to best_model-lstm.h5
+Epoch 11/50
+57/57 [==============================] - 5s 81ms/step - loss: 2.9277 - val_loss: 3.1467
+
+Epoch 00011: val_loss did not improve from 3.13734
+Epoch 12/50
+57/57 [==============================] - 5s 84ms/step - loss: 2.8779 - val_loss: 3.0892
+
+Epoch 00012: val_loss improved from 3.13734 to 3.08924, saving model to best_model-lstm.h5
+Epoch 13/50
+57/57 [==============================] - 6s 112ms/step - loss: 2.8249 - val_loss: 3.0891
+
+Epoch 00013: val_loss improved from 3.08924 to 3.08909, saving model to best_model-lstm.h5
+Epoch 14/50
+57/57 [==============================] - 6s 99ms/step - loss: 2.7663 - val_loss: 3.0747
+
+Epoch 00014: val_loss improved from 3.08909 to 3.07472, saving model to best_model-lstm.h5
+Epoch 15/50
+57/57 [==============================] - 5s 95ms/step - loss: 2.7111 - val_loss: 3.0832
+
+Epoch 00015: val_loss did not improve from 3.07472
+Epoch 16/50
+57/57 [==============================] - 5s 90ms/step - loss: 2.6520 - val_loss: 3.0761
+
+Epoch 00016: val_loss did not improve from 3.07472
+Epoch 17/50
+57/57 [==============================] - 5s 86ms/step - loss: 2.5804 - val_loss: 3.0795
+
+Epoch 00017: val_loss did not improve from 3.07472
+Epoch 18/50
+57/57 [==============================] - 5s 88ms/step - loss: 2.5374 - val_loss: 3.1038
+
+Epoch 00018: val_loss did not improve from 3.07472
+Epoch 19/50
+57/57 [==============================] - 5s 80ms/step - loss: 2.4827 - val_loss: 3.0851
+
+Epoch 00019: val_loss did not improve from 3.07472
+Epoch 20/50
+57/57 [==============================] - 5s 89ms/step - loss: 2.4119 - val_loss: 3.1297
+
+Epoch 00020: val_loss did not improve from 3.07472
+Epoch 21/50
+57/57 [==============================] - 5s 80ms/step - loss: 2.3524 - val_loss: 3.1291
+
+Epoch 00021: val_loss did not improve from 3.07472
+Epoch 22/50
+57/57 [==============================] - 5s 86ms/step - loss: 2.2957 - val_loss: 3.1418
+
+Epoch 00022: val_loss did not improve from 3.07472
+Epoch 23/50
+57/57 [==============================] - 5s 84ms/step - loss: 2.2338 - val_loss: 3.1619
+
+Epoch 00023: val_loss did not improve from 3.07472
+Epoch 24/50
+57/57 [==============================] - 5s 80ms/step - loss: 2.1857 - val_loss: 3.1699
+
+Epoch 00024: val_loss did not improve from 3.07472
+Epoch 25/50
+57/57 [==============================] - 5s 79ms/step - loss: 2.1137 - val_loss: 3.1920
+
+Epoch 00025: val_loss did not improve from 3.07472
+Epoch 26/50
+57/57 [==============================] - 6s 100ms/step - loss: 2.0557 - val_loss: 3.2198
+
+Epoch 00026: val_loss did not improve from 3.07472
+Epoch 27/50
+57/57 [==============================] - 6s 100ms/step - loss: 1.9851 - val_loss: 3.2525
+
+Epoch 00027: val_loss did not improve from 3.07472
+Epoch 28/50
+57/57 [==============================] - 5s 89ms/step - loss: 1.9198 - val_loss: 3.3045
+
+Epoch 00028: val_loss did not improve from 3.07472
+Epoch 29/50
+57/57 [==============================] - 4s 78ms/step - loss: 1.8578 - val_loss: 3.3421
+
+Epoch 00029: val_loss did not improve from 3.07472
+Epoch 30/50
+57/57 [==============================] - 5s 92ms/step - loss: 1.7877 - val_loss: 3.3870
+
+Epoch 00030: val_loss did not improve from 3.07472
+Epoch 31/50
+57/57 [==============================] - 5s 81ms/step - loss: 1.7321 - val_loss: 3.4513
+
+Epoch 00031: val_loss did not improve from 3.07472
+Epoch 32/50
+57/57 [==============================] - 5s 89ms/step - loss: 1.6895 - val_loss: 3.5033
+
+Epoch 00032: val_loss did not improve from 3.07472
+Epoch 33/50
+57/57 [==============================] - 5s 81ms/step - loss: 1.6202 - val_loss: 3.5058
+
+Epoch 00033: val_loss did not improve from 3.07472
+Epoch 34/50
+57/57 [==============================] - 5s 80ms/step - loss: 1.5336 - val_loss: 3.5606
+
+Epoch 00034: val_loss did not improve from 3.07472
+Epoch 35/50
+57/57 [==============================] - 5s 94ms/step - loss: 1.4648 - val_loss: 3.6612
+
+Epoch 00035: val_loss did not improve from 3.07472
+Epoch 36/50
+57/57 [==============================] - 5s 93ms/step - loss: 1.4108 - val_loss: 3.7298
+
+Epoch 00036: val_loss did not improve from 3.07472
+Epoch 37/50
+57/57 [==============================] - 5s 84ms/step - loss: 1.3377 - val_loss: 3.7528
+
+Epoch 00037: val_loss did not improve from 3.07472
+Epoch 38/50
+57/57 [==============================] - 5s 92ms/step - loss: 1.2702 - val_loss: 3.8363
+
+Epoch 00038: val_loss did not improve from 3.07472
+Epoch 39/50
+57/57 [==============================] - 5s 84ms/step - loss: 1.2030 - val_loss: 3.8885
+
+Epoch 00039: val_loss did not improve from 3.07472
+Epoch 40/50
+57/57 [==============================] - 5s 94ms/step - loss: 1.1335 - val_loss: 4.0077
+
+Epoch 00040: val_loss did not improve from 3.07472
+Epoch 41/50
+57/57 [==============================] - 5s 87ms/step - loss: 1.0719 - val_loss: 4.0647
+
+Epoch 00041: val_loss did not improve from 3.07472
+Epoch 42/50
+57/57 [==============================] - 5s 93ms/step - loss: 1.0073 - val_loss: 4.1653
+
+Epoch 00042: val_loss did not improve from 3.07472
+Epoch 43/50
+57/57 [==============================] - 5s 93ms/step - loss: 0.9439 - val_loss: 4.2694
+
+Epoch 00043: val_loss did not improve from 3.07472
+Epoch 44/50
+57/57 [==============================] - 5s 86ms/step - loss: 0.8924 - val_loss: 4.3209
+
+Epoch 00044: val_loss did not improve from 3.07472
+Epoch 45/50
+57/57 [==============================] - 6s 97ms/step - loss: 0.8131 - val_loss: 4.4382
+
+Epoch 00045: val_loss did not improve from 3.07472
+Epoch 46/50
+57/57 [==============================] - 6s 104ms/step - loss: 0.7745 - val_loss: 4.5043
+
+Epoch 00046: val_loss did not improve from 3.07472
+Epoch 47/50
+57/57 [==============================] - 6s 113ms/step - loss: 0.7148 - val_loss: 4.5649
+
+Epoch 00047: val_loss did not improve from 3.07472
+Epoch 48/50
+57/57 [==============================] - 6s 110ms/step - loss: 0.6709 - val_loss: 4.6883
+
+Epoch 00048: val_loss did not improve from 3.07472
+Epoch 49/50
+57/57 [==============================] - 6s 104ms/step - loss: 0.6211 - val_loss: 4.7600
+
+Epoch 00049: val_loss did not improve from 3.07472
+Epoch 50/50
+57/57 [==============================] - 6s 114ms/step - loss: 0.5631 - val_loss: 4.8725
+
+Epoch 00050: val_loss did not improve from 3.07472
+loss_list: [3.6749491691589355, 3.5450448989868164, 3.437861442565918, 3.368884325027466, 3.316516876220703, 3.2707314491271973, 3.220150947570801, 3.1843061447143555, 3.1685097217559814, 3.137342929840088, 3.14667010307312, 3.0892419815063477, 3.0890934467315674, 3.0747172832489014, 3.0831706523895264, 3.0760815143585205, 3.0795226097106934, 3.103832721710205, 3.0851480960845947, 3.129669427871704, 3.129140615463257, 3.141793727874756, 3.16191029548645, 3.1699159145355225, 3.192042112350464, 3.2197885513305664, 3.252459764480591, 3.3045084476470947, 3.342054843902588, 3.387019634246826, 3.4513230323791504, 3.50327467918396, 3.5058391094207764, 3.560633659362793, 3.6612460613250732, 3.7297730445861816, 3.752756357192993, 3.8362863063812256, 3.888516664505005, 4.00773286819458, 4.064711570739746, 4.165303707122803, 4.26935338973999, 4.320942401885986, 4.438237190246582, 4.504302501678467, 4.5649333000183105, 4.688348293304443, 4.7599711418151855, 4.8724541664123535]
+name: best_model-lstm.h5
+[17, 17, 17, 17, 17, 17, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 17, 17, 17, 17, 17, 36, 36, 36, 36, 36, 36, 36]
+['6.9.0', '6.9.0', '6.9.0', '6.9.0', '6.9.0', '6.9.0', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', '6.9.0', '6.9.0', '6.9.0', '6.9.0', '6.9.0', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4', 'D4']

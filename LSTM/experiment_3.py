@@ -21,19 +21,19 @@ from music21 import converter, instrument, note, chord, stream
 
 # defining function to read MIDI files
 def visualize_loss(losses, file_name):
-    x = np.arange(1, len(losses)+1)
-    plt.xlabel('i\'th Epoch')
-    plt.ylabel('Loss Value')
-    plt.title('Loss per Epoch')
+    x = np.arange(1, len(losses) + 1)
+    plt.xlabel("i'th Epoch")
+    plt.ylabel("Loss Value")
+    plt.title("Loss per Epoch")
     plt.plot(x, losses)
-    path="./train_graphs/"
-    plt.savefig(path+file_name)
-    #plt.show()
-    
-    
-def read_midi(file):
+    path = "./train_graphs/"
+    plt.savefig(path + file_name)
+    # plt.show()
 
-    print("Loading Music File:", file)
+
+def read_midi(file, count):
+
+    # print("Loading Music File:", file)
 
     notes = []
     notes_to_parse = None
@@ -48,11 +48,16 @@ def read_midi(file):
 
         # note
         if isinstance(element, note.Note):
-            notes.append(str(element.pitch))
+            notes.append([str(element.pitch), element.quarterLength])
 
         # chord
         elif isinstance(element, chord.Chord):
-            notes.append(".".join(str(n) for n in element.normalOrder))
+            notes.append(
+                [".".join(str(n) for n in element.normalOrder), element.quarterLength]
+            )
+
+    sys.stdout.write("\r%d" % count)
+    sys.stdout.flush()
 
     # # grouping based on different instruments
     # s2 = instrument.partitionByInstrument(midi)
@@ -81,10 +86,11 @@ def read_midi(file):
 
 def lstm(unique_x, unique_y):
     model = models.Sequential()
-    model.add(layers.Embedding(len(unique_x), 100, input_length=32, trainable=True))
-    model.add(layers.LSTM(128, return_sequences=True))
-    model.add(layers.LSTM(128))
-    model.add(layers.Dense(256))
+    model.add(layers.Embedding(len(unique_x), 200, input_length=32, trainable=True))
+    model.add(layers.LSTM(256, return_sequences=True))
+    model.add(layers.LSTM(256, return_sequences=True))
+    model.add(layers.LSTM(256))
+    model.add(layers.Dense(512))
     model.add(layers.Activation("relu"))
     model.add(layers.Dense(len(unique_y)))
     model.add(layers.Activation("softmax"))
@@ -171,10 +177,49 @@ def convert_to_midi(prediction_output, output_audio=False):
 path = "./midis/"
 
 # read all the filenames
-files = [i for i in os.listdir(path) if i.endswith(".mid") and i.startswith("Alba")]
+files = [i for i in os.listdir(path) if i.endswith(".mid") and i.startswith("Agnew")]
+# files = [i for i in os.listdir(path) if i.endswith(".mid")]
 
-# reading each midi file
-notes_array = np.array([read_midi(path + i) for i in files])
+print(len(files), " files")
+notes_array = None
+# Check if numpy file exists
+# if "all_midi.npy" in os.listdir(path):
+#     with open(path + "all_midi.npy", "rb") as f:
+#         notes_array = np.load(f, allow_pickle=True)
+# else:
+#     # reading each midi file
+#     # notes_array = np.array(
+#     #     [read_midi(path + filename, count) for count, filename in enumerate(files)]
+#     # )
+#     notes_array = np.array(
+#         [
+#             read_midi(path + filename, count)
+#             for count, filename in enumerate(files)
+#             if count < 250
+#         ]
+#     )
+#     with open(path + "all_midi.npy", "wb") as f:
+#         np.save(f, notes_array, allow_pickle=True)
+#     print()
+
+if "agnew_midi.npy" in os.listdir(path):
+    with open(path + "agnew_midi.npy", "rb") as f:
+        notes_array = np.load(f, allow_pickle=True)
+else:
+    # reading each midi file
+    notes_array = np.array(
+        [read_midi(path + filename, count) for count, filename in enumerate(files)]
+    )
+    # notes_array = np.array(
+    #     [
+    #         read_midi(path + filename, count)
+    #         for count, filename in enumerate(files)
+    #         if count < 250
+    #     ]
+    # )
+    with open(path + "agnew_midi.npy", "wb") as f:
+        np.save(f, notes_array, allow_pickle=True)
+    print()
 
 # converting 2D array into 1D array
 notes_ = [element for note_ in notes_array for element in note_]
@@ -302,8 +347,8 @@ if sys.argv[2] == "--train":
         np.array(x_tr),
         np.array(y_tr),
         batch_size=128,
-        epochs=50,
-        # epochs=1,
+        # epochs=50,
+        epochs=250,
         validation_data=(np.array(x_val), np.array(y_val)),
         verbose=1,
         callbacks=[mc],
@@ -311,11 +356,12 @@ if sys.argv[2] == "--train":
 
     # Losses
     # https://stackoverflow.com/questions/36952763/how-to-return-history-of-validation-loss-in-keras
-    loss_list = (history.history["val_loss"])
-    print("loss_list:",loss_list)
-    print("name:", f"best_model-{name})
-    
-    visualize_losses(loss_list, f"best_model"-{name})
+    loss_list = history.history["val_loss"]
+    print("loss_list:", loss_list)
+    print("name:", f"best_model-{name}.h5")
+
+    visualize_loss(loss_list, f"best_model-{name}")
+
 # loading best model
 # TODO: Will need to manually rename best models in the future
 model = load_model(f"best_model-{name}.h5")
@@ -327,7 +373,7 @@ ind = np.random.randint(0, len(x_val) - 1)
 random_music = x_val[ind]
 
 predictions = []
-for i in range(50):
+for i in range(500):
 
     random_music = random_music.reshape(1, no_of_timesteps)
 

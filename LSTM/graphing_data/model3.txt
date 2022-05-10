@@ -1,0 +1,60 @@
+x: (594095, 32)
+y: (594095,)
+2022-05-10 14:20:38.678761: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding (Embedding)        (None, 32, 200)           82800     
+_________________________________________________________________
+lstm (LSTM)                  (None, 32, 128)           168448    
+_________________________________________________________________
+lstm_1 (LSTM)                (None, 128)               131584    
+_________________________________________________________________
+dense (Dense)                (None, 256)               33024     
+_________________________________________________________________
+activation (Activation)      (None, 256)               0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 414)               106398    
+_________________________________________________________________
+activation_1 (Activation)    (None, 414)               0         
+=================================================================
+Total params: 522,254
+Trainable params: 522,254
+Non-trainable params: 0
+_________________________________________________________________
+unique x: 414
+unique y: 414
+2022-05-10 14:20:39.268388: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:185] None of the MLIR Optimization Passes are enabled (registered 2)
+Epoch 1/250
+3714/3714 [==============================] - 302s 80ms/step - loss: 4.8104 - val_loss: 4.5319
+
+Epoch 00001: val_loss improved from inf to 4.53193, saving model to best_model-lstm.h5
+Epoch 2/250
+3714/3714 [==============================] - 293s 79ms/step - loss: 4.4373 - val_loss: 4.3979
+
+Epoch 00002: val_loss improved from 4.53193 to 4.39788, saving model to best_model-lstm.h5
+Epoch 3/250
+3714/3714 [==============================] - 296s 80ms/step - loss: 4.3304 - val_loss: 4.3306
+
+Epoch 00003: val_loss improved from 4.39788 to 4.33059, saving model to best_model-lstm.h5
+Epoch 4/250
+3714/3714 [==============================] - 322s 87ms/step - loss: 4.2581 - val_loss: 4.2925
+
+Epoch 00004: val_loss improved from 4.33059 to 4.29252, saving model to best_model-lstm.h5
+Epoch 5/250
+3714/3714 [==============================] - 325s 87ms/step - loss: 4.2054 - val_loss: 4.2791
+
+Epoch 00005: val_loss improved from 4.29252 to 4.27906, saving model to best_model-lstm.h5
+Epoch 6/250
+3714/3714 [==============================] - 317s 85ms/step - loss: 4.1611 - val_loss: 4.2732
+
+Epoch 00006: val_loss improved from 4.27906 to 4.27318, saving model to best_model-lstm.h5
+Epoch 7/250
+3714/3714 [==============================] - 307s 83ms/step - loss: 4.1193 - val_loss: 4.2804
+
+Epoch 00007: val_loss did not improve from 4.27318
+Epoch 8/250
+2575/3714 [===================>..........] - ETA: 3:37 - loss: 4.0738^CTraceback (most recent call last):
+  File "LSTM/experiment_2.py", line 332, in <module>

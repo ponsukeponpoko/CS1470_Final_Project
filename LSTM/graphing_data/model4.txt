@@ -1,0 +1,109 @@
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding (Embedding)        (None, 32, 200)           25200     
+_________________________________________________________________
+lstm (LSTM)                  (None, 32, 256)           467968    
+_________________________________________________________________
+lstm_1 (LSTM)                (None, 256)               525312    
+_________________________________________________________________
+dense (Dense)                (None, 512)               131584    
+_________________________________________________________________
+activation (Activation)      (None, 512)               0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 126)               64638     
+_________________________________________________________________
+activation_1 (Activation)    (None, 126)               0         
+=================================================================
+Total params: 1,214,702
+Trainable params: 1,214,702
+Non-trainable params: 0
+_________________________________________________________________
+unique x: 126
+unique y: 126
+2022-05-10 15:06:12.446991: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:185] None of the MLIR Optimization Passes are enabled (registered 2)
+Epoch 1/250
+128/128 [==============================] - 34s 240ms/step - loss: 4.5089 - val_loss: 4.3613
+
+Epoch 00001: val_loss improved from inf to 4.36126, saving model to best_model-lstm.h5
+Epoch 2/250
+128/128 [==============================] - 36s 285ms/step - loss: 4.2785 - val_loss: 4.2108
+
+Epoch 00002: val_loss improved from 4.36126 to 4.21083, saving model to best_model-lstm.h5
+Epoch 3/250
+128/128 [==============================] - 35s 271ms/step - loss: 4.1300 - val_loss: 4.1398
+
+Epoch 00003: val_loss improved from 4.21083 to 4.13982, saving model to best_model-lstm.h5
+Epoch 4/250
+128/128 [==============================] - 33s 261ms/step - loss: 4.0449 - val_loss: 4.0719
+
+Epoch 00004: val_loss improved from 4.13982 to 4.07186, saving model to best_model-lstm.h5
+Epoch 5/250
+128/128 [==============================] - 31s 243ms/step - loss: 3.9615 - val_loss: 4.0356
+
+Epoch 00005: val_loss improved from 4.07186 to 4.03555, saving model to best_model-lstm.h5
+Epoch 6/250
+128/128 [==============================] - 32s 248ms/step - loss: 3.8782 - val_loss: 3.9938
+
+Epoch 00006: val_loss improved from 4.03555 to 3.99381, saving model to best_model-lstm.h5
+Epoch 7/250
+128/128 [==============================] - 33s 256ms/step - loss: 3.7772 - val_loss: 3.9640
+
+Epoch 00007: val_loss improved from 3.99381 to 3.96397, saving model to best_model-lstm.h5
+Epoch 8/250
+128/128 [==============================] - 32s 251ms/step - loss: 3.6566 - val_loss: 3.9333
+
+Epoch 00008: val_loss improved from 3.96397 to 3.93329, saving model to best_model-lstm.h5
+Epoch 9/250
+128/128 [==============================] - 33s 260ms/step - loss: 3.5099 - val_loss: 3.9149
+
+Epoch 00009: val_loss improved from 3.93329 to 3.91489, saving model to best_model-lstm.h5
+Epoch 10/250
+128/128 [==============================] - 34s 262ms/step - loss: 3.3499 - val_loss: 3.9184
+
+Epoch 00010: val_loss did not improve from 3.91489
+Epoch 11/250
+128/128 [==============================] - 33s 258ms/step - loss: 3.1582 - val_loss: 3.8906
+
+Epoch 00011: val_loss improved from 3.91489 to 3.89058, saving model to best_model-lstm.h5
+Epoch 12/250
+128/128 [==============================] - 33s 254ms/step - loss: 2.9506 - val_loss: 3.9036
+
+Epoch 00012: val_loss did not improve from 3.89058
+Epoch 13/250
+128/128 [==============================] - 31s 244ms/step - loss: 2.7297 - val_loss: 3.9633
+
+Epoch 00013: val_loss did not improve from 3.89058
+Epoch 14/250
+128/128 [==============================] - 32s 248ms/step - loss: 2.5018 - val_loss: 3.9863
+
+Epoch 00014: val_loss did not improve from 3.89058
+Epoch 15/250
+128/128 [==============================] - 33s 256ms/step - loss: 2.2540 - val_loss: 4.1048
+
+Epoch 00015: val_loss did not improve from 3.89058
+Epoch 16/250
+128/128 [==============================] - 32s 252ms/step - loss: 2.0122 - val_loss: 4.2669
+
+Epoch 00016: val_loss did not improve from 3.89058
+Epoch 17/250
+128/128 [==============================] - 32s 254ms/step - loss: 1.7632 - val_loss: 4.4373
+
+Epoch 00017: val_loss did not improve from 3.89058
+Epoch 18/250
+128/128 [==============================] - 36s 280ms/step - loss: 1.5102 - val_loss: 4.5682
+
+Epoch 00018: val_loss did not improve from 3.89058
+Epoch 19/250
+128/128 [==============================] - 34s 268ms/step - loss: 1.2583 - val_loss: 4.8183
+
+Epoch 00019: val_loss did not improve from 3.89058
+Epoch 20/250
+128/128 [==============================] - 31s 246ms/step - loss: 1.0084 - val_loss: 5.0663
+
+Epoch 00020: val_loss did not improve from 3.89058
+Epoch 21/250
+ 58/128 [============>.................] - ETA: 17s - loss: 0.7294^CTraceback (most recent call last):
+  File "LSTM/experiment_2.py", line 351, in <module>
+    callbacks=[mc],

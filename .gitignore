@@ -12,3 +12,11 @@ env
 env/
 ./env
 ./env/
+
+*.h5
+
+./train_graphs
+./train_graphs/*
+train_graphs/*
+train_graphs/
+/train_graphs/
